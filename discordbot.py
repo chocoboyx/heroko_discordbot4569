@@ -28,8 +28,6 @@ async def on_message(message):
         
         if content == '':
             content = first
-        print(content)
-        print(translator.detect(content).lang)
         if translator.detect(content).lang == DSTLanguage:
             return
         if translator.detect(content).lang == SRCLanguage or SRCLanguage == '':
