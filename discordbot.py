@@ -4,8 +4,8 @@ import os
 from pprint import pprint
 # 輸入自己Bot的TOKEN碼
 TOKEN = os.environ['TOKEN']
-SRCLanguage='ja'
-DSTLanguage='zh-CN'
+SRCLanguage=''
+DSTLanguage='zh-tw'
 
 client = discord.Client()
 
