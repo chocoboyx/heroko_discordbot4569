@@ -1,8 +1,11 @@
 import discord
 import googletrans
+import os
 from pprint import pprint
 # 輸入自己Bot的TOKEN碼
-TOKEN = 'ODU0Njk2OTM0NTA0NTI5OTYy.YMnsjA.ccP75JIJTlNH0gjfDIxVPIMu2XI'
+TOKEN = os.environ['TOKEN']
+SRCLanguage='ja'
+DSTLanguage='zh-CN'
 
 client = discord.Client()
 
@@ -21,15 +24,17 @@ async def on_message(message):
     if client.user in message.mentions: # @判定
         translator = googletrans.Translator()
         robotName = client.user.name
-        if translator.detect(message.content) == 'zh-tw':
-            return
-            
         first, space, content = message.clean_content.partition('@'+robotName+' ')
         
         if content == '':
             content = first
-        remessage = translator.translate(content, dest='zh-tw').text
-        await message.reply(remessage) 
+        print(content)
+        print(translator.detect(content).lang)
+        if translator.detect(content).lang == DSTLanguage:
+            return
+        if translator.detect(content).lang == SRCLanguage or SRCLanguage == '':
+            remessage = translator.translate(content, dest='zh-tw').text
+            await message.reply(remessage) 
 
 # Bot起動
 client.run(TOKEN)
